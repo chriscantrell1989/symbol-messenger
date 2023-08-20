@@ -25,7 +25,7 @@
     var symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
     var message = encodeURIComponent(document.getElementById('messageSearch').value);
 
-    var url = "https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec?symbol=" + symbol + "&message=" + message;
+    var url = "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
 
     fetch(url)
     .then(response => response.text())  // Always get the response as text first
@@ -55,7 +55,7 @@
     var message = encodeURIComponent(document.getElementById('messageInput').value);
 
     // Note the addition of "&action=add" to the end of the URL.
-    var url = "https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec?symbol=" + symbol + "&message=" + message + "&action=add";
+    var url = "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
 
     fetch(url)
     .then(response => response.text())
