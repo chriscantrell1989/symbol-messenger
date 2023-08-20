@@ -16,36 +16,38 @@
 <div id="results"></div>
 
 <script>
-    function searchData() {
-    var symbol = document.getElementById('symbolSearch').value;
-    var message = document.getElementById('messageSearch').value;
+   function searchData() {
+    var symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
+    var message = encodeURIComponent(document.getElementById('messageSearch').value);
 
-    var url = "https://script.google.com/macros/s/AKfycbxmnCdXV2ZE2gP1y-Qk3fDy6koTlPSkBe28zzpV9XiPXpFp0U-QAr_OCSOyYHOxKKav/exec";
+    var url = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec?symbol=" + symbol + "&message=" + message;
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ symbol: symbol, message: message })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (typeof data === 'string') {
-            document.getElementById('results').innerHTML = data;
-        } else {
-            let output = "<ul>";
-            for(let i = 0; i < data.length; i++) {
-                output += "<li>Symbol: " + data[i][0] + ", Message: " + data[i][1] + "</li>";
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-            output += "</ul>";
-            document.getElementById('results').innerHTML = output;
-        }
-    })
-    .catch(error => {
-        console.error("Error fetching data:", error);
-    });
+            return response.text();  // Let's first get the response as text
+        })
+        .then(data => {
+            try {
+                var jsonData = JSON.parse(data);  // Try to parse the data as JSON
+                let output = "<ul>";
+                for(let i = 0; i < jsonData.length; i++) {
+                    output += "<li>Symbol: " + jsonData[i][0] + ", Message: " + jsonData[i][1] + "</li>";
+                }
+                output += "</ul>";
+                document.getElementById('results').innerHTML = output;
+            } catch (error) {
+                console.error("Error parsing JSON:", error);
+                document.getElementById('results').innerHTML = data;  // Display the raw data if it's not JSON
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
 }
+
 
 </script>
 
