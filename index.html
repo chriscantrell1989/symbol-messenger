@@ -12,6 +12,11 @@
 <input type="text" id="messageSearch" placeholder="Search by Message">
 <button onclick="searchData()">Search</button>
 
+<input type="text" id="symbolInput" placeholder="Enter Symbol">
+<input type="text" id="messageInput" placeholder="Enter Message">
+<button onclick="addData()">Add Data</button>
+
+
 <!-- Placeholder for Displaying Results -->
 <div id="results"></div>
 
@@ -43,6 +48,32 @@
     });
 
 }
+
+    function addData() {
+    var symbol = document.getElementById('symbolInput').value;
+    var message = document.getElementById('messageInput').value;
+
+    var url = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec";
+
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            symbol: symbol,
+            message: message
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);  // Alert the response from the script
+    })
+    .catch(error => {
+        console.error("Error adding data:", error);
+    });
+}
+
 
 
 </script>
