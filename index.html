@@ -31,3 +31,22 @@
 
 </body>
 </html>
+
+
+function searchData() {
+    var symbol = document.getElementById('symbolSearch').value;
+    var message = document.getElementById('messageSearch').value;
+
+    var url = "https://script.google.com/macros/s/AKfycbxmnCdXV2ZE2gP1y-Qk3fDy6koTlPSkBe28zzpV9XiPXpFp0U-QAr_OCSOyYHOxKKav/exec?symbol=" + symbol + "&message=" + message;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        var resultDiv = document.getElementById('results');
+        resultDiv.innerHTML = JSON.stringify(data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+}
+
