@@ -17,18 +17,23 @@
 
 <script>
     function searchData() {
-        var symbol = document.getElementById('symbolSearch').value;
-        var message = document.getElementById('messageSearch').value;
+        var symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
+        var message = encodeURIComponent(document.getElementById('messageSearch').value);
 
         var url = "https://script.google.com/macros/s/AKfycbxmnCdXV2ZE2gP1y-Qk3fDy6koTlPSkBe28zzpV9XiPXpFp0U-QAr_OCSOyYHOxKKav/exec?symbol=" + symbol + "&message=" + message;
 
         fetch(url)
           .then(response => response.json())
           .then(data => {
-              if (typeof data === 'string' && data === "No results found") {
+              if (typeof data === 'string') {
                   document.getElementById('results').innerHTML = data;
               } else {
-                  document.getElementById('results').innerHTML = JSON.stringify(data);
+                  let output = "<ul>";
+                  for(let i = 0; i < data.length; i++) {
+                      output += "<li>Symbol: " + data[i][0] + ", Message: " + data[i][1] + "</li>";
+                  }
+                  output += "</ul>";
+                  document.getElementById('results').innerHTML = output;
               }
           })
           .catch(error => {
