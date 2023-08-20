@@ -1,3 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbol Messenger Search</title>
+</head>
+
+<body>
+    <!-- Search Inputs and Button -->
+    <input type="text" id="symbolSearch" placeholder="Search by Symbol">
+    <input type="text" id="messageSearch" placeholder="Search by Message">
+    <button onclick="searchData()">Search</button>
+
+    <input type="text" id="symbolInput" placeholder="Enter Symbol">
+    <input type="text" id="messageInput" placeholder="Enter Message">
+    <button onclick="addData()">Add Data</button>
+
+    <!-- Placeholder for Displaying Results -->
+    <div id="results"></div>
+
+
 <script>
     function searchData() {
         console.log('searchData called');
