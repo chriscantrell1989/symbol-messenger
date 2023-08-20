@@ -3,41 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symbol Messenger</title>
+    <title>Symbol Messenger Search</title>
 </head>
 <body>
-    <h2>Symbol Messenger</h2>
-    <div>
-        <label for="symbol">Symbol:</label>
-        <input type="text" id="symbol">
-        <label for="message">Message (optional):</label>
-        <input type="text" id="message">
-        <button onclick="submitData()">Submit</button>
-    </div>
-    <div id="response"></div>
 
-    <script>
-        function submitData() {
-            const symbol = document.getElementById('symbol').value;
-            const message = document.getElementById('message').value;
-            const endpoint = "https://script.google.com/macros/s/AKfycbxmnCdXV2ZE2gP1y-Qk3fDy6koTlPSkBe28zzpV9XiPXpFp0U-QAr_OCSOyYHOxKKav/exec"; // Your GAS web app URL
+<!-- Search Inputs and Button -->
+<input type="text" id="symbolSearch" placeholder="Search by Symbol">
+<input type="text" id="messageSearch" placeholder="Search by Message">
+<button onclick="searchData()">Search</button>
 
-            // Determine if this is a GET (retrieve) or POST (add) operation
-            const method = message ? 'POST' : 'GET';
+<!-- Placeholder for Displaying Results -->
+<div id="results"></div>
 
-            fetch(endpoint, {
-                method: method,
-                body: new URLSearchParams({ 'symbol': symbol, 'message': message })
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('response').innerText = data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('response').innerText = "An error occurred.";
-            });
-        }
-    </script>
+<script>
+    function searchData() {
+        var symbol = document.getElementById('symbolSearch').value;
+        var message = document.getElementById('messageSearch').value;
+
+        // This is a mock-up. You'll need to integrate it with the actual API call to your Google Apps Script.
+        // For now, it just displays a message to indicate that the search was triggered.
+        document.getElementById('results').innerHTML = "Searching for Symbol: " + symbol + " and Message: " + message;
+        
+        // TODO: Make an HTTP request to your Google Apps Script with the search criteria.
+        // Display the results on your web page.
+    }
+</script>
+
 </body>
 </html>
