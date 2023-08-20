@@ -1,42 +1,46 @@
-function searchData() {
-    var symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
-    var message = encodeURIComponent(document.getElementById('messageSearch').value);
-    var url = "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
-    
-    fetch(url)
-    .then(response => response.text())  // Always get the response as text first
-    .then(data => {
-        try {
-            var jsonData = JSON.parse(data);  // Try to parse the data as JSON
-            let output = "<ul>";
-            for(let i = 0; i < jsonData.length; i++) {
-                output += "<li>Symbol: " + jsonData[i][0] + ", Message: " + jsonData[i][1] + "</li>";
-            }
-            output += "</ul>";
-            document.getElementById('results').innerHTML = output;
-        } catch (error) {
-            console.error("Error parsing JSON:", error);
-            document.getElementById('results').innerHTML = data;  // Display the raw data if it's not JSON
-        }
-    })
-    .catch(error => {
-        console.error("Error fetching data:", error);
-    });
-}
+<script>
+    function searchData() {
+        console.log('searchData called');
+        var symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
+        var message = encodeURIComponent(document.getElementById('messageSearch').value);
+        var url = "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
 
-function addData() {
-    console.log('addData called');
-    var symbol = encodeURIComponent(document.getElementById('symbolInput').value);
-    var message = encodeURIComponent(document.getElementById('messageInput').value);
-    // Note the addition of "&action=add" to the end of the URL.
-    var url = "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
-    
-    fetch(url)
-    .then(response => response.text())
-    .then(data => {
-        alert(data);  // Alert the response from the script
-    })
-    .catch(error => {
-        console.error("Error adding data:", error);
-    });
-}
+        fetch(url)
+            .then(response => response.text())  // Always get the response as text first
+            .then(data => {
+                try {
+                    var jsonData = JSON.parse(data);  // Try to parse the data as JSON
+                    let output = "<ul>";
+                    for (let i = 0; i < jsonData.length; i++) {
+                        output += "<li>Symbol: " + jsonData[i][0] + ", Message: " + jsonData[i][1] + "</li>";
+                    }
+                    output += "</ul>";
+                    document.getElementById('results').innerHTML = output;
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
+                    document.getElementById('results').innerHTML = data;  // Display the raw data if it's not JSON
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
+    }
+
+    function addData() {
+        console.log('addData called');
+        var symbol = encodeURIComponent(document.getElementById('symbolInput').value);
+        var message = encodeURIComponent(document.getElementById('messageInput').value);
+
+        // Note the addition of "&action=add" to the end of the URL.
+        var url = "https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
+
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                alert(data);  // Alert the response from the script
+            })
+            .catch(error => {
+                console.error("Error adding data:", error);
+            });
+    }
+</script>
