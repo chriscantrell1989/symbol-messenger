@@ -53,11 +53,23 @@
         }
 
         function addData() {
-            let symbol = encodeURIComponent(document.getElementById('symbolInput').value);
-            let message = encodeURIComponent(document.getElementById('messageInput').value);
-            let url = `${BASE_URL}?symbol=${symbol}&message=${message}&action=add`;
-            fetchData(url);
-        }
+    console.log('addData called');
+    var symbol = encodeURIComponent(document.getElementById('symbolInput').value);
+    var message = encodeURIComponent(document.getElementById('messageInput').value);
+
+    // Note the addition of "?action=add" to the end of the URL.
+    var url = "https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec?action=add&symbol=" + symbol + "&message=" + message;
+
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            alert(data);  // Alert the response from the script
+        })
+        .catch(error => {
+            console.error("Error adding data:", error);
+        });
+}
+
     </script>
 </body>
 </html>
