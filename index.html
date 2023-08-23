@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Symbol Messenger Search</title>
 </head>
+
 <body>
     <!-- Search Inputs and Button -->
     <input type="text" id="symbolSearch" placeholder="Search by Symbol">
@@ -19,12 +21,9 @@
     <div id="results"></div>
 
     <script>
-        function searchData() {
-            console.log('searchData called');
-            var symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
-            var message = encodeURIComponent(document.getElementById('messageSearch').value);
-            var url = "https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
+        const BASE_URL = "https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
 
+        function fetchData(url) {
             fetch(url)
                 .then(response => response.text())
                 .then(data => {
@@ -37,29 +36,27 @@
                         output += "</ul>";
                         document.getElementById('results').innerHTML = output;
                     } catch (error) {
-                        console.error("Error parsing JSON:", error);
-                        document.getElementById('results').innerHTML = data;
+                        document.getElementById('results').innerHTML = data; // If not JSON, display raw data
                     }
                 })
                 .catch(error => {
-                    console.error("Error fetching data:", error);
+                    console.error("Error:", error);
+                    document.getElementById('results').innerHTML = "Error occurred!";
                 });
         }
 
-        function addData() {
-            console.log('addData called');
-            var symbol = encodeURIComponent(document.getElementById('symbolInput').value);
-            var message = encodeURIComponent(document.getElementById('messageInput').value);
-            var url = "https://script.google.com/macros/s/AKfycbyXrmkwx6bcvjkS-BKcQwaF8PZqpa810acUGHAkO-T974zdFddQvE4gyYI0JE_RmaK6/exec";
+        function searchData() {
+            let symbol = encodeURIComponent(document.getElementById('symbolSearch').value);
+            let message = encodeURIComponent(document.getElementById('messageSearch').value);
+            let url = `${BASE_URL}?symbol=${symbol}&message=${message}`;
+            fetchData(url);
+        }
 
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    alert(data);
-                })
-                .catch(error => {
-                    console.error("Error adding data:", error);
-                });
+        function addData() {
+            let symbol = encodeURIComponent(document.getElementById('symbolInput').value);
+            let message = encodeURIComponent(document.getElementById('messageInput').value);
+            let url = `${BASE_URL}?symbol=${symbol}&message=${message}&action=add`;
+            fetchData(url);
         }
     </script>
 </body>
